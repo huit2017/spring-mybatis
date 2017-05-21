@@ -65,6 +65,21 @@
     <spring-framework.version>4.3.8.RELEASE</spring-framework.version>
   </properties>
 
+  <!-- Build Settings -->
+  <build>
+    <finalName>sample-servlet</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
   <!-- More Project Information -->
   <name>application Maven Webapp</name>
   <url>http://maven.apache.org</url>
