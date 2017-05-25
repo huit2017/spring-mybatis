@@ -6,17 +6,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import huit2017.entity.Bbs;
-import huit2017.mapper.BbsMapper;
+import huit2017.service.TopService;
 
 @Controller
 public class TopController {
 
     @Autowired
-    private BbsMapper bbsMapper;
+    private TopService topService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
-        Bbs bbs = bbsMapper.selectByPrimaryKey(1);
+        Bbs bbs = topService.index();
         System.out.println("comment: " + bbs.getComment());
         return "index";
     }
