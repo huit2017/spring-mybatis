@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import huit2017.dto.top.FinishInDto;
+import huit2017.dto.top.FinishOutDto;
 import huit2017.dto.top.IndexInDto;
 import huit2017.dto.top.IndexOutDto;
 import huit2017.service.TopService;
@@ -26,5 +28,16 @@ public class TopController {
         model.addAttribute("title", "タイトル");
         model.addAttribute("message", outDto.getComment());
         return "top/index";
+    }
+
+    @RequestMapping(path = "/finish", method = RequestMethod.GET)
+    public String finish(@RequestParam(defaultValue = "1") Integer bbsId, Model model) {
+
+        FinishInDto inDto = new FinishInDto();
+        inDto.setBbsId(bbsId);
+        FinishOutDto outDto = topService.finish(inDto);
+        model.addAttribute("title", "タイトル");
+        model.addAttribute("message", "登録完了");
+        return "top/finish";
     }
 }
