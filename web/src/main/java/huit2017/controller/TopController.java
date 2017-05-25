@@ -14,7 +14,7 @@ public class TopController {
     @Autowired
     private TopService topService;
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @RequestMapping(path = "/index", method = RequestMethod.GET)
     public String index() {
         Bbs bbs = topService.index();
         System.out.println("comment: " + bbs.getComment());
