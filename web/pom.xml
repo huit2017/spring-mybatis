@@ -84,4 +84,42 @@
     <!-- Spring -->
     <spring-framework.version>4.3.8.RELEASE</spring-framework.version>
   </properties>
+
+  <!-- Build Settings -->
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+  </build>
+
+  <!-- Environment Settings -->
+  <profiles>
+    <profile>
+      <id>local</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <env>local</env>
+        <database.url>jdbc:mysql://localhost/bbs</database.url>
+        <database.username>root</database.username>
+        <database.password>root</database.password>
+      </properties>
+    </profile>
+    <profile>
+      <id>development</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <env>development</env>
+        <database.url>jdbc:mysql://localhost/bbs</database.url>
+        <database.username>root</database.username>
+        <database.password>root</database.password>
+      </properties>
+    </profile>
+  </profiles>
 </project>
