@@ -4,6 +4,6 @@
 <title>トップ</title>
 </head>
 <body>
-	<h2>日本語</h2>
+	<h2>日本語2</h2>
 </body>
 </html>

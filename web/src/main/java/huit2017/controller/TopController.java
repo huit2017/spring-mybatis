@@ -18,6 +18,6 @@ public class TopController {
     public String index() {
         Bbs bbs = topService.index();
         System.out.println("comment: " + bbs.getComment());
-        return "index";
+        return "top/index";
     }
 }
