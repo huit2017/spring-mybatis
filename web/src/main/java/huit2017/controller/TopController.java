@@ -2,6 +2,7 @@ package huit2017.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -15,9 +16,10 @@ public class TopController {
     private TopService topService;
 
     @RequestMapping(path = "/index", method = RequestMethod.GET)
-    public String index() {
+    public String index(Model model) {
         Bbs bbs = topService.index();
-        System.out.println("comment: " + bbs.getComment());
+        model.addAttribute("title", "タイトル");
+        model.addAttribute("message", bbs.getComment());
         return "top/index";
     }
 }
