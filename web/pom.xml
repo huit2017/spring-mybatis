@@ -16,6 +16,11 @@
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${spring-framework.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
       <artifactId>spring-tx</artifactId>
       <version>${spring-framework.version}</version>
     </dependency>
@@ -24,6 +29,16 @@
       <artifactId>spring-test</artifactId>
       <version>${spring-framework.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+      <version>1.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-dbcp2</artifactId>
+      <version>2.1.1</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -54,6 +69,11 @@
       <version>1.0.13</version>
       <scope>runtime</scope>
     </dependency>
+    <dependency>
+      <groupId>huit2017</groupId>
+      <artifactId>integration</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
   <parent>
     <groupId>huit2017</groupId>
@@ -64,23 +84,4 @@
     <!-- Spring -->
     <spring-framework.version>4.3.8.RELEASE</spring-framework.version>
   </properties>
-
-  <!-- Build Settings -->
-  <build>
-    <finalName>sample-servlet</finalName>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.1.0</version>
-        <configuration>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-
-  <!-- More Project Information -->
-  <name>application Maven Webapp</name>
-  <url>http://maven.apache.org</url>
 </project>
