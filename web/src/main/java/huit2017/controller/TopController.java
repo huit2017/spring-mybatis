@@ -1,12 +1,19 @@
 package huit2017.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import huit2017.dto.AccountDto;
+import huit2017.dto.AccountUserDetails;
 import huit2017.dto.top.FinishInDto;
 import huit2017.dto.top.FinishOutDto;
 import huit2017.dto.top.IndexInDto;
@@ -16,11 +23,22 @@ import huit2017.service.TopService;
 @Controller
 public class TopController {
 
+    private Logger logger = LoggerFactory.getLogger(TopController.class);
+
     @Autowired
     private TopService topService;
 
     @RequestMapping(path = "/index", method = RequestMethod.GET)
     public String index(@RequestParam(defaultValue = "1") Integer bbsId, Model model) {
+
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Authentication authentication = securityContext.getAuthentication();
+        AccountUserDetails userDetails = (AccountUserDetails) authentication.getPrincipal();
+        // ユーザ名，パスワードの取得
+        String username = userDetails.getUsername();
+        String password = userDetails.getPassword();
+        logger.debug(String.format("username: %s, password:%s", username, password));
+        AccountDto accountDto = userDetails.getAccountDto();
 
         IndexInDto inDto = new IndexInDto();
         inDto.setBbsId(bbsId);

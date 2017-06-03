@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+  xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:sec="http://www.springframework.org/schema/security"
+  xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+  <sec:http >
+    <sec:intercept-url pattern="/index.jsp" access="permitAll()" />
+    <sec:intercept-url pattern="/login.jsp" access="permitAll()" />
+    <sec:intercept-url pattern="/admin/**" access="hasAuthority('ROLE_ADMIN')" />
+    <sec:intercept-url pattern="/**" access="isAuthenticated()" />
+    <sec:form-login
+      login-page="/login.jsp"
+      default-target-url="/index"
+      authentication-failure-url="/login.jsp"
+      username-parameter="paramLoginId"
+      password-parameter="paramPassword" />
+    <sec:logout
+      logout-url="/logout"
+      logout-success-url="/index.jsp"
+      invalidate-session="true"
+      delete-cookies="JSESSIONID, jssesionid" />
+    <sec:csrf disabled="true" />
+  </sec:http>
+  <sec:authentication-manager>
+    <sec:authentication-provider user-service-ref="userService">
+    <!--
+      <sec:password-encoder hash="bcrypt"/>
+     -->
+    </sec:authentication-provider>
+  </sec:authentication-manager>
+  <!--
+  <global-method-security pre-post-annotations="enabled"/>
+   -->
+   <bean id="userService" class="huit2017.service.impl.UserDetailsServiceImpl"/>
+</beans>
