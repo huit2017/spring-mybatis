@@ -1,11 +1,12 @@
 package huit2017.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import lombok.Data;
 
 @Data
-public class AccountDto {
+public class AccountDto implements Serializable {
 
    private Integer id;
 

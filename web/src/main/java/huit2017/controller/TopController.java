@@ -3,9 +3,7 @@ package huit2017.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,11 +27,8 @@ public class TopController {
     private TopService topService;
 
     @RequestMapping(path = "/index", method = RequestMethod.GET)
-    public String index(@RequestParam(defaultValue = "1") Integer bbsId, Model model) {
+    public String index(@AuthenticationPrincipal AccountUserDetails userDetails, @RequestParam(defaultValue = "1") Integer bbsId, Model model) {
 
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        Authentication authentication = securityContext.getAuthentication();
-        AccountUserDetails userDetails = (AccountUserDetails) authentication.getPrincipal();
         // ユーザ名，パスワードの取得
         String username = userDetails.getUsername();
         String password = userDetails.getPassword();

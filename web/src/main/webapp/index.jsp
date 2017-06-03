@@ -9,8 +9,5 @@
   <ul>
     <li><a href="${pageContext.request.contextPath}/index">ログイン後トップページへ</a></li>
   </ul>
-  <form action="logout" method="post">
-    <button>ログアウト</button>
-  </form>
 </body>
 </html>
