@@ -38,9 +38,22 @@ public class TopController {
         IndexInDto inDto = new IndexInDto();
         inDto.setBbsId(bbsId);
         IndexOutDto outDto = topService.index(inDto);
-        model.addAttribute("title", "タイトル");
+        model.addAttribute("title", "トップ");
         model.addAttribute("message", outDto.getComment());
         return "top/index";
+    }
+
+    @RequestMapping(path = "/detail", method = RequestMethod.GET)
+    public String detail(@AuthenticationPrincipal AccountUserDetails userDetails, @RequestParam(defaultValue = "1") Integer bbsId, Model model) {
+
+        AccountDto accountDto = userDetails.getAccountDto();
+
+        IndexInDto inDto = new IndexInDto();
+        inDto.setBbsId(bbsId);
+        IndexOutDto outDto = topService.index(inDto);
+        model.addAttribute("title", "詳細");
+        model.addAttribute("message", outDto.getComment());
+        return "top/detail";
     }
 
     @RequestMapping(path = "/finish", method = RequestMethod.GET)
@@ -49,7 +62,7 @@ public class TopController {
         FinishInDto inDto = new FinishInDto();
         inDto.setBbsId(bbsId);
         FinishOutDto outDto = topService.finish(inDto);
-        model.addAttribute("title", "タイトル");
+        model.addAttribute("title", "登録完了");
         model.addAttribute("message", "登録完了");
         return "top/finish";
     }

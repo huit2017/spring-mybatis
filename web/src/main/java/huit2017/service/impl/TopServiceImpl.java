@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import huit2017.dto.top.DetailInDto;
+import huit2017.dto.top.DetailOutDto;
 import huit2017.dto.top.FinishInDto;
 import huit2017.dto.top.FinishOutDto;
 import huit2017.dto.top.IndexInDto;
@@ -28,6 +30,14 @@ public class TopServiceImpl implements TopService {
     public IndexOutDto index(IndexInDto inDto) {
         Bbs bbs = bbsMapper.selectByPrimaryKey(inDto.getBbsId());
         IndexOutDto outDto = new IndexOutDto();
+        outDto.setComment(bbs.getComment());
+        return outDto;
+    }
+
+    @Override
+    public DetailOutDto detail(DetailInDto inDto) {
+        Bbs bbs = bbsMapper.selectByPrimaryKey(inDto.getBbsId());
+        DetailOutDto outDto = new DetailOutDto();
         outDto.setComment(bbs.getComment());
         return outDto;
     }

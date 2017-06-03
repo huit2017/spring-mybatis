@@ -13,7 +13,6 @@
     <sec:intercept-url pattern="/**" access="isAuthenticated()" />
     <sec:form-login
       login-page="/login.jsp"
-      default-target-url="/index"
       authentication-failure-url="/login.jsp"
       username-parameter="paramLoginId"
       password-parameter="paramPassword" />
