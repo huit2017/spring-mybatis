@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'java8'
+        label 'maven'
     }
     stages {
         stage('checkout - git') {
@@ -19,10 +19,13 @@ pipeline {
                 sh 'curl --upload-file /home/jenkins/workspace/spring-mybatis/web/target/web-0.0.1-SNAPSHOT.war "http://deploy:s3cret@192.168.33.12:8080/manager/text/deploy?path=/spring-mybatis&update=true"'
             }
         }
-        stage('notifications - slack') {
-            steps {
-                slackSend channel: "#renshu", message: "Build End: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
-            }
+    }
+    post {
+        success {
+            slackSend channel: "#renshu", message: "Build success: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+        }
+        failure {
+            slackSend channel: "#renshu", message: "Build failure: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
         }
     }
 }
