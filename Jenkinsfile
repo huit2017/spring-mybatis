@@ -23,9 +23,15 @@ pipeline {
     post {
         success {
             slackSend channel: "#renshu", message: "Build success: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+            withCredentials([string(credentialsId: 'd2dfe2d2-e33b-4aff-8f23-1b119c64db65', variable: 'ApiKey')]) {
+                sh 'curl -X POST -H "X-ChatWorkToken:$ApiKey" -d "body=Build success: ${env.JOB_NAME} ${env.BUILD_NUMBER}" "https://api.chatwork.com/v2/rooms/38341637/messages"'
+            }
         }
         failure {
             slackSend channel: "#renshu", message: "Build failure: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+            withCredentials([string(credentialsId: 'd2dfe2d2-e33b-4aff-8f23-1b119c64db65', variable: 'ApiKey')]) {
+                sh 'curl -X POST -H "X-ChatWorkToken:$ApiKey" -d "body=Build failure: ${env.JOB_NAME} ${env.BUILD_NUMBER}" "https://api.chatwork.com/v2/rooms/38341637/messages"'
+            }
         }
     }
 }
