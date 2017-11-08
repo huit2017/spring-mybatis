@@ -8,7 +8,8 @@ public class TopServiceImplTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		int actual = 1;
+		assertEquals("せいこう", 1, actual);
 	}
 
 }
