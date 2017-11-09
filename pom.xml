@@ -39,9 +39,9 @@
         <executions>
           <execution>
             <id>findbugs-test</id>
-            <phase>verify</phase>
+            <phase>compile</phase>
             <goals>
-              <goal>check</goal>
+              <goal>findbugs</goal>
             </goals>
           </execution>
         </executions>
