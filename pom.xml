@@ -39,7 +39,7 @@
         <executions>
           <execution>
             <id>findbugs-test</id>
-            <phase>test</phase>
+            <phase>verify</phase>
             <goals>
               <goal>check</goal>
             </goals>
