@@ -41,7 +41,7 @@
             <id>findbugs-test</id>
             <phase>test</phase>
             <goals>
-              <goal>findbugs</goal>
+              <goal>check</goal>
             </goals>
           </execution>
         </executions>
