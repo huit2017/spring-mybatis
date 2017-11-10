@@ -8,10 +8,17 @@ pipeline {
                 git url:'git@github.com:huit2017/spring-mybatis.git', credentialsId: '8505e445-6221-4656-82f6-da163131340a'
             }
         }
-        stage('build - maven') {
+        stage('package') {
             steps {
-                sh 'mvn clean package'
-                sh 'mvn package'
+                sh 'mvn clean install'
+            }
+        }
+        stage('verify') {
+            steps {
+                junit '**/target/surefire-reports/*.xml'
+                jacoco execPattern: '**/target/jacoco.exec'
+                findbugs(pattern:'**/target/findbugsXml.xml')
+                checkstyle(pattern:'**/target/checkstyle-result.xml')
             }
         }
         stage('deploy - tomcat') {
@@ -22,15 +29,15 @@ pipeline {
     }
     post {
         success {
-            slackSend channel: "#renshu", message: "Build success: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+            slackSend channel: "#renshu", message: "${BUILD_TAG} : success"
             withCredentials([string(credentialsId: 'd2dfe2d2-e33b-4aff-8f23-1b119c64db65', variable: 'ApiKey')]) {
-                sh 'curl -X POST -H "X-ChatWorkToken:$ApiKey" -d "body=Build success: ${env.JOB_NAME} ${env.BUILD_NUMBER}" "https://api.chatwork.com/v2/rooms/38341637/messages"'
+                sh 'curl -X POST -H "X-ChatWorkToken:$ApiKey" -d "body=$(git log -1)" "https://api.chatwork.com/v2/rooms/38341637/messages"'
             }
         }
         failure {
-            slackSend channel: "#renshu", message: "Build failure: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+            slackSend channel: "#renshu", message: "${BUILD_TAG} : failure"
             withCredentials([string(credentialsId: 'd2dfe2d2-e33b-4aff-8f23-1b119c64db65', variable: 'ApiKey')]) {
-                sh 'curl -X POST -H "X-ChatWorkToken:$ApiKey" -d "body=Build failure: ${env.JOB_NAME} ${env.BUILD_NUMBER}" "https://api.chatwork.com/v2/rooms/38341637/messages"'
+                sh 'curl -X POST -H "X-ChatWorkToken:$ApiKey" -d "body=$(git log -1)" "https://api.chatwork.com/v2/rooms/38341637/messages"'
             }
         }
     }
