@@ -31,10 +31,6 @@ public class TopServiceImpl implements TopService {
         Bbs bbs = bbsMapper.selectByPrimaryKey(inDto.getBbsId());
         IndexOutDto outDto = new IndexOutDto();
         outDto.setComment(bbs.getComment());
-        String a = null;
-    	if (a.equals("hogehoge")) {
-    	    
-    	}
         return outDto;
     }
 
